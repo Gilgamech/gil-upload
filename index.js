@@ -74,13 +74,12 @@ function writeLog($msg) {
 $http.createServer(function (request, response) {
 	response.setHeader('Access-Control-Allow-Origin', "*")
 	try {
+	writeLog(request.method +"request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
 if (request.method == "GET") {
-	writeLog("Page loaded from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
 //Change to upload textarea and button
     $postArea = { "elements": [{"id":"uploadWrapper","elementParent":"parentElement","elementClass":"$_.classes.ContentRow","innerText":"upload","attributeType":"method","attributeAction":"post"},{"id":"uploadableTextArea","elementParent":"uploadWrapper","elementClass":"$_.classes.FullDesktopFullMobile","elementType":"textarea"},{"id":"uploadBtnRow","elementParent":"uploadWrapper"},{"elementParent":"uploadBtnRow","innerText":"Upload","elementClass":"btn btn-primary","elementType":"button","onClick":"xhrRequest('POST','http://localhost:5004/upload?username=' + findCookieByName('username')+ '&SessionID=' + findCookieByName('SessionID')+ '&SessionKey=' + findCookieByName('SessionKey')+'&elements=' + readElement('uploadableTextArea').replace(/#/g,'~~'),function($cb){if ($cb.split(':')[0] == findCookieByName('username')){document.cookie = 'SessionID='+$cb.split(':')[1];document.cookie = 'SessionKey='+$cb.split(':')[2]}});"}] };
 	response.end(JSON.stringify($postArea)) 
 } else if (request.method == "POST") {
-	writeLog("POST request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
 
 	//console.log(request.url); 
 	var $user = request.url.split("/upload?")[1].split("&")[0].split("=")[1]
