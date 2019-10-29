@@ -1,0 +1,8 @@
+{
+  "name": "GilAPI",
+  "description": "API for Gilgamech",
+  "repository": "https://github.com/Gilgamech/GilAPI",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "Gilgamech", "express", "heroku"],
+  "image": "heroku/nodejs"
+}
