@@ -11,7 +11,7 @@
 //{ Init vars
 var $http = require("http");
 var $serviceName = "Upload";
-var $hostName = "localhost";
+var $hostName = (process.env.HOST || "localhost");
 var $servicePort = (process.env.PORT || 5004);
 var Sequelize = require("sequelize");
 sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:dbpasswd@127.0.0.1:5432/postgres', {logging: false});
@@ -77,7 +77,7 @@ $http.createServer(function (request, response) {
 	writeLog(request.method +"request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
 if (request.method == "GET") {
 //Change to upload textarea and button
-    $postArea = { "elements": [{"id":"uploadWrapper","elementParent":"parentElement","elementClass":"$_.classes.ContentRow","innerText":"upload","attributeType":"method","attributeAction":"post"},{"id":"uploadableTextArea","elementParent":"uploadWrapper","elementClass":"$_.classes.FullDesktopFullMobile","elementType":"textarea"},{"id":"uploadBtnRow","elementParent":"uploadWrapper"},{"elementParent":"uploadBtnRow","innerText":"Upload","elementClass":"btn btn-primary","elementType":"button","onClick":"xhrRequest('POST','http://localhost:5004/upload?username=' + findCookieByName('username')+ '&SessionID=' + findCookieByName('SessionID')+ '&SessionKey=' + findCookieByName('SessionKey')+'&elements=' + readElement('uploadableTextArea').replace(/#/g,'~~'),function($cb){if ($cb.split(':')[0] == findCookieByName('username')){document.cookie = 'SessionID='+$cb.split(':')[1];document.cookie = 'SessionKey='+$cb.split(':')[2]}});"}] };
+    $postArea = { "elements": [{"id":"uploadWrapper","elementParent":"parentElement","elementClass":"$_.classes.ContentRow","innerText":"upload","attributeType":"method","attributeAction":"post"},{"id":"uploadableTextArea","elementParent":"uploadWrapper","elementClass":"$_.classes.FullDesktopFullMobile","elementType":"textarea"},{"id":"uploadBtnRow","elementParent":"uploadWrapper"},{"elementParent":"uploadBtnRow","innerText":"Upload","elementClass":"btn btn-primary","elementType":"button","onClick":"xhrRequest('POST','http://"+$hostName+":"+$servicePort+"/upload?username=' + findCookieByName('username')+ '&SessionID=' + findCookieByName('SessionID')+ '&SessionKey=' + findCookieByName('SessionKey')+'&elements=' + readElement('uploadableTextArea').replace(/#/g,'~~'),function($cb){if ($cb.split(':')[0] == findCookieByName('username')){document.cookie = 'SessionID='+$cb.split(':')[1];document.cookie = 'SessionKey='+$cb.split(':')[2]}});"}] };
 	response.end(JSON.stringify($postArea)) 
 } else if (request.method == "POST") {
 
