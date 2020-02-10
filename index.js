@@ -79,6 +79,7 @@ if (request.method == "GET") {
     $postArea = { "elements": [{"id":"uploadWrapper","elementParent":"parentElement","elementClass":"$spaRationalMain.classes.ContentRow","innerText":"upload","attributeType":"method","attributeAction":"post"},{"id":"uploadableTextArea","elementParent":"uploadWrapper","elementClass":"$spaRationalMain.classes.FullDesktopFullMobile","elementType":"textarea"},{"id":"uploadBtnRow","elementParent":"uploadWrapper"},{"elementParent":"uploadBtnRow","innerText":"Upload","elementClass":"btn btn-primary","elementType":"button","onClick":"xhrRequest('POST','http://"+$hostName+"/upload?username=' + findCookieByName('username')+ '&SessionID=' + findCookieByName('SessionID')+ '&SessionKey=' + findCookieByName('SessionKey')+'&elements=' + readElement('uploadableTextArea').replace(/#/g,'~~'),function($cb){if ($cb.split(':')[0] == findCookieByName('username')){document.cookie = 'SessionID='+$cb.split(':')[1];document.cookie = 'SessionKey='+$cb.split(':')[2]}});"}] };
 	response.end(JSON.stringify($postArea)) 
 } else if (request.method == "POST") {
+ if (request.url.indexOf("/upload?") > 0) {
 
 	//console.log(request.url); 
 	var $user = request.url.split("/upload?")[1].split("&")[0].split("=")[1]
@@ -92,7 +93,6 @@ if (request.method == "GET") {
 	//console.log($JsonUpload); 
 	$JsonUpload = JSON.parse($JsonUpload)
 
-	if (request.url.length > 28) {
 	if (typeof $JsonUpload.jmlVersion == "undefined") {//upload page
 		if (typeof $user !== "undefined" & typeof $sessionID !== "undefined" & typeof $sessionKey !== "undefined") {
 			$sessionID = $sessionID.replace(/;/g,"")
@@ -154,9 +154,6 @@ if (request.method == "GET") {
 	response.end(JSON.stringify(err))
 		});//end Session query
 
-	} else {
-			writeLog("Failed upload attempt: bad upload package for user: "+$user+" sessionID: " + $sessionID +" from server: " + request.connection.remoteAddress + " for path " + request.url)
-			response.end("Failed upload attempt: bad upload package for user: " + $user + " with sessionID-to-swim: " + swimmersEncode($sessionID)) 
 
     }//end if $JsonUpload.jmlVersion
     }; // end request url indexOf
