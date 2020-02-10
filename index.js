@@ -71,6 +71,7 @@ function writeLog($msg) {
 
 //{ Upload
 $http.createServer(function (request, response) {
+	request.setRequestHeader('Access-Control-Allow-Origin', "*")
 	response.setHeader('Access-Control-Allow-Origin', "*")
 	try {
 	writeLog(request.method +" request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
