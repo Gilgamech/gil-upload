@@ -11,18 +11,18 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "sparational": "1.1.8",
-    "pg": "7.4.0",
-    "pg-hstore": "2.3.2",
-    "sequelize": "5.21.1",
-    "ejs": "2.5.6",
     "express": "4.15.2",
-    "cookie-parser": "1.4.3",
+    "aws-sdk": "2.188.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.18.2",
+    "cookie-parser": "1.4.3",
+    "ejs": "2.5.6",
     "express-session": "1.15.6",
-    "stripe": "5.6.1",
-    "aws-sdk": "2.188.0"
+    "pg": "^7.12.1",
+    "pg-hstore": "2.3.2",
+    "sequelize": "5.21.1",
+    "sparational": "1.1.8",
+    "stripe": "5.6.1"
   },
   "devDependencies": {
     "request": "^2.81.0",

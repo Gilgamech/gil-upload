@@ -55,7 +55,6 @@ function refreshKey($user) {
 	return $user + ":" + $sessionID + ":" + $sessionKey
 };
 
-
 function getBadPW() { return Math.random().toString(36).slice(-20).slice(2); };
 function writeLog($msg) { 
 	$msg = $msg.toString().replace(/'/g,"~~")
@@ -74,7 +73,7 @@ function writeLog($msg) {
 $http.createServer(function (request, response) {
 	response.setHeader('Access-Control-Allow-Origin', "*")
 	try {
-	writeLog(request.method +"request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
+	writeLog(request.method +" request from address:" + request.connection.remoteAddress + " on path: "+request.connection.remotePort+" for path " + request.url)
 if (request.method == "GET") {
 //Change to upload textarea and button
     $postArea = { "elements": [{"id":"uploadWrapper","elementParent":"parentElement","elementClass":"$_.classes.ContentRow","innerText":"upload","attributeType":"method","attributeAction":"post"},{"id":"uploadableTextArea","elementParent":"uploadWrapper","elementClass":"$_.classes.FullDesktopFullMobile","elementType":"textarea"},{"id":"uploadBtnRow","elementParent":"uploadWrapper"},{"elementParent":"uploadBtnRow","innerText":"Upload","elementClass":"btn btn-primary","elementType":"button","onClick":"xhrRequest('POST','http://"+$hostName+"/upload?username=' + findCookieByName('username')+ '&SessionID=' + findCookieByName('SessionID')+ '&SessionKey=' + findCookieByName('SessionKey')+'&elements=' + readElement('uploadableTextArea').replace(/#/g,'~~'),function($cb){if ($cb.split(':')[0] == findCookieByName('username')){document.cookie = 'SessionID='+$cb.split(':')[1];document.cookie = 'SessionKey='+$cb.split(':')[2]}});"}] };
@@ -175,7 +174,7 @@ if (request.method == "GET") {
 }).listen($servicePort);
 //}
 
-//{ End items
+//{ Run Once
 writeLog('Service is running on port ' + $servicePort);
 console.log($serviceName + ' is running on port ' + $servicePort);
 //}
