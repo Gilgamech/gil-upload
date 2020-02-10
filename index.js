@@ -157,11 +157,9 @@ if (request.method == "GET") {
 	} else {
 			writeLog("Failed upload attempt: bad upload package for user: "+$user+" sessionID: " + $sessionID +" from server: " + request.connection.remoteAddress + " for path " + request.url)
 			response.end("Failed upload attempt: bad upload package for user: " + $user + " with sessionID-to-swim: " + swimmersEncode($sessionID)) 
+
     }//end if $JsonUpload.jmlVersion
-
-    }//end if request.url.length
-
-
+    }; // end request url indexOf
 
 } else {
 	response.end("Use GET or POST here.") 
